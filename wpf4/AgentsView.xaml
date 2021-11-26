@@ -1,0 +1,80 @@
+﻿<Page x:Class="wpf4.AgentsView"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:wpf4"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="800"
+      Title="AgentsView"
+      Initialized="Page_Initialized">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <StackPanel Orientation="Horizontal">
+                <TextBox x:Name="findText" Width="180" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Text="" Height="40" Margin="50 0 0 0" TextChanged="findText_TextChanged" FontSize="16"></TextBox>
+                <ComboBox x:Name="sortBox" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="180" Margin="20 0 0 0" SelectedIndex="0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16">
+                    <ListViewItem Content="Сортировка"/>
+                </ComboBox>
+                <ComboBox x:Name="filterBox" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="180" Margin="20 0 0 0" SelectedIndex="0" SelectionChanged="filterBox_SelectionChanged" FontSize="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"></ComboBox>
+                <Button x:Name="CreateAgentButton" Content="Создать Агента!" Margin="20 0 0 0" HorizontalAlignment="Center" VerticalAlignment="Center" Height="40" Width="140" Click="CreateAgentButton_Click"></Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <ListView x:Name="agentsList" MouseDoubleClick="agentsList_MouseDoubleClick">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="20"  >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150"></ColumnDefinition>
+                                <ColumnDefinition Width="*"></ColumnDefinition>
+                                <ColumnDefinition Width="100"></ColumnDefinition>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Image Stretch="Fill">
+                                    <Image.Source>
+                                        <Binding Path="ImagePreview">
+                                            <Binding.TargetNullValue>
+                                                <ImageSource>Resources/picture.png</ImageSource>
+                                            </Binding.TargetNullValue>
+                                        </Binding>
+                                    </Image.Source>
+                                </Image>
+                            </Grid>
+
+                            <Grid Grid.Column="1">
+                                <StackPanel Orientation="Vertical">
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label FontSize="16" Content="{Binding AgentType.Title}"></Label>
+                                        <Label FontSize="16" Content="|"></Label>
+                                        <Label FontSize="16" Margin="10 0 0 0" Content="{Binding Title}"></Label>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="{Binding ProductCount}"></Label>
+                                        <Label Content=" продаж за год"></Label>
+                                    </StackPanel>
+                                    <Label Content="{Binding Phone}"></Label>
+                                    <StackPanel Orientation="Horizontal">
+                                        <Label Content="Приоритетность: "></Label>
+                                        <Label Content="{Binding Priority}"></Label>
+                                    </StackPanel>
+                                </StackPanel>
+                            </Grid>
+
+                            <Grid Grid.Column="2">
+                                <Label Content="{Binding DiscountDisplay}" HorizontalAlignment="Right" VerticalAlignment="Stretch" FontSize="24"></Label>
+                            </Grid>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+    </Grid>
+</Page>

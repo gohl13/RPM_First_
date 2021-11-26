@@ -1,0 +1,129 @@
+﻿<Page x:Class="wpf4.EditAgent"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:wpf4"
+      mc:Ignorable="d" 
+      d:DesignHeight="800" d:DesignWidth="1100"
+      Title="EditAgent">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="300"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Button x:Name="BackButton" VerticalAlignment="Center" HorizontalAlignment="Left" Width="150" Height="30" Content="Назад!" FontSize="20" Margin="20,0,0,0" Click="BackButton_Click"></Button>
+            <Label Content="Редактирование агента" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"></Label>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button x:Name="SaveButton" Content="Сохранить" HorizontalAlignment="Right" VerticalAlignment="Center" FontSize="20" Margin="0,0,20,0" Click="SaveButton_Click"  ></Button>
+                <Button x:Name="DeleteButton" Content="Удалить" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" Click="DeleteButton_Click" ></Button>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="400"></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition Width="400"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Наименование" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="TitleAgent" Width="200" Text="{Binding Title}" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="16"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0">
+                            <Label Content="Тип агента" FontSize="16" Width="150"></Label>
+                            <ComboBox x:Name="AgentType" Width="100" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="16" SelectionChanged="AgentType_SelectionChanged" ></ComboBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
+                            <Label Content="Приоритет" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="Priority" HorizontalContentAlignment="Center" Text="{Binding Priority}" VerticalContentAlignment="Center" Width="100" FontSize="16" ></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Margin="0,5,0,0" >
+                            <Label Content="Адрес" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="AdressBox" Text="{Binding Address}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="200" FontSize="16" ></TextBox>
+                        </StackPanel>
+                        
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="2">
+                    <StackPanel Orientation="Vertical">
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="ИНН" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="INNBox" Width="200" Text="{Binding INN}" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="16"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="КПП" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="KPPBox" Width="200" Text="{Binding KPP}" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="16"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Имя директора" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="DirectorNameBox" Width="200" Text="{Binding DirectorName}" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="16"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Телефон" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="PhoneBox" Width="200" Text="{Binding Phone}" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="16"></TextBox>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal">
+                            <Label Content="Email" FontSize="16" Width="150"></Label>
+                            <TextBox x:Name="EmailBox" Width="200" Text="{Binding Email}" HorizontalContentAlignment="Center" VerticalAlignment="Center" FontSize="16"></TextBox>
+                        </StackPanel>
+
+
+
+                    </StackPanel>
+                </Grid>
+
+                <Grid Grid.Column="1">
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Логотип" FontSize="20" HorizontalAlignment="Center" VerticalAlignment="Center"></Label>
+                        <Image Height="200" Stretch="Fill">
+                            <Image.Source>
+                                <Binding Path="ImagePreview">
+                                    <Binding.TargetNullValue>
+                                        <ImageSource>Resources/picture.png</ImageSource>
+                                    </Binding.TargetNullValue>
+                                </Binding>
+                            </Image.Source>
+                        </Image>
+
+                        <Button x:Name="ChangeLogoButton" Content="Сменить логотип" FontSize="20" Click="ChangeLogoButton_Click"></Button>
+                    </StackPanel>
+                </Grid>
+            </Grid>
+        </Grid>
+        <Grid Grid.Row="2">
+            <DataGrid x:Name="HistoryGrid" Background="White" AutoGenerateColumns="False" IsReadOnly="True">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Дата" Width="200" Binding="{Binding SaleDate}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Наименование" Width="400" Binding="{Binding Product.Title}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Количество" Width="100" Binding="{Binding ProductCount}"></DataGridTextColumn>
+                    <DataGridTemplateColumn Width="200">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Grid>
+                                    <Button x:Name="DeleteHistoryButton" Click="DeleteHistoryButton_Click" Content="Удалить"  VerticalAlignment="Center"></Button>
+                                </Grid>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+        </Grid>
+    </Grid>
+</Page>
